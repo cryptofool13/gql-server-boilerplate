@@ -1,3 +1,6 @@
+const createToken = async user => {
+  return;
+};
 export default {
   Query: {
     users: async (parent, args, { models }) => {
@@ -19,6 +22,16 @@ export default {
           userId: user.id
         }
       }); // Object.values(models.messages).filter(message => message.userId === user.id);
+    }
+  },
+  Mutation: {
+    signUp: async (parent, { username, email, password }, { models }) => {
+      const user = await models.User.create({
+        username,
+        email,
+        password
+      });
+      return { token: createToken(user) };
     }
   }
 };
